@@ -35,7 +35,7 @@ function App() {
       //{
       //  setResult(result => [...result, new AnswerProps(result.length.toString(), "odpowiedz", false, 2000)]);
       //}
-    }, 10000);
+    }, 1200);
 
     return () => clearTimeout(timer);
   }, []);
@@ -43,9 +43,10 @@ function App() {
 
   return (
     <div className="App">
-      <Points teams={appProps.teams.teams} />
-      <Question question={appProps.question}/>
-      <Answers answers={appProps.answers.answers} />
+      <header><Points teams={appProps.teams.teams} /></header>
+      <nav><Question question={appProps.question}/></nav>
+      <section><Answers answers={appProps.answers.answers} /></section>
+      <aside>        WRONG!      </aside>
     </div>
   );
 }

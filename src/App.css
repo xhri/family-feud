@@ -1,5 +1,6 @@
 .App {
   text-align: center;
+  background-color: #336699;
 }
 
 .App-logo {
@@ -35,4 +36,36 @@
   to {
     transform: rotate(360deg);
   }
+}
+
+header{
+  
+  width: 90%;
+  margin-left:5%;
+  margin-right:5%;
+}
+
+nav{
+
+  width: 90%;
+  margin-left:5%;
+  margin-right:5%;
+}
+
+section
+{
+    float: left;
+    width : 69%;
+    border-width : 0.1em;
+    border-style : dashed;
+    border-color : black;
+} 
+
+aside
+{
+    float: left;
+    width : 30%;
+    border-width : 0.1em;
+    border-style : dashed;
+    border-color : black;
 }

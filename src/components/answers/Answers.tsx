@@ -1,7 +1,7 @@
 import React from 'react';
 import Answer from '../answer/Answer';
 import AnswersProps from './AnswersProps';
-//import './App.css';
+import './Answers.css';
 
 function Answers(props : AnswersProps) {
   return (
