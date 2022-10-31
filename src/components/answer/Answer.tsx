@@ -1,12 +1,15 @@
 import React from 'react';
 import AnswerProps from './AnswerProps';
-//import './App.css';
+import './Answer.css';
 
 function Answer(props : AnswerProps) {
   return (
-    <div className="Answer">
-        <p>
-            {props.answer}
+    <div className={`Answer ${props.ansered ? "Answered" : ""}`}>
+        <p className="AnswerName">
+            {props.ansered ? props.answer : 'XXXXXXXXXXX'}
+        </p>
+        <p className="AnswerPoints">
+            {props.points}
         </p>
     </div>
   );

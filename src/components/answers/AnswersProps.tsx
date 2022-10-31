@@ -1,7 +1,7 @@
 import AnswerProps from "../answer/AnswerProps";
 
 class AnswersProps{
-    answers!: Array<AnswerProps>;
+    answers: Array<AnswerProps> = [];
 }
 
 

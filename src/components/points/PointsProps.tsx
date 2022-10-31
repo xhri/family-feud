@@ -1,8 +1,7 @@
+import TeamProps from "../team/TeamProps";
+
 class PointsProps{
-  constructor(points: number){
-    this.points = points;
-  }
-  points: number;
+  teams: Array<TeamProps> = [];
 }
 
 

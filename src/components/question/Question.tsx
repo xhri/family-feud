@@ -1,6 +1,6 @@
 import React from 'react';
 import QuestionProps from './QuestionProps';
-//import './App.css';
+import './Question.css';
 
 function Question(props : QuestionProps) {
   return (
