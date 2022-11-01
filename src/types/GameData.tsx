@@ -8,5 +8,4 @@ export default interface GameData {
     points: Array<Team>,
     activeTeam: number,
     wrong: number
-    //TODO do zmiany
   }

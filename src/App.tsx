@@ -9,9 +9,10 @@ import GameService from "./GameService"
 import AppProps from './AppProps';
 import AnswersProps from './components/answers/AnswersProps';
 import PointsProps from './components/points/PointsProps';
+import Wrong from './components/wrong/Wrong';
 
 function App() {
-  const [appProps, setAppProps] = useState<AppProps>(new AppProps("example", new AnswersProps(), new PointsProps()));
+  const [appProps, setAppProps] = useState<AppProps>(new AppProps("example", new AnswersProps(), new PointsProps(), 0, true));
   //const [result, setResult] = useState<Array<AnswerProps>>([]);
 
   useEffect(() => {
@@ -26,7 +27,7 @@ function App() {
       points.teams = [];
       result.points.map(t => {points.teams = [...points.teams, new TeamProps(t.key, t.points, t.name, result.activeTeam==t.key)]});
 
-      setAppProps(new AppProps(result.question, answers, points))
+      setAppProps(new AppProps(result.question, answers, points, result.wrong, result.break))
 
 
       //let x = Math.floor(Math.random() * 7);
@@ -46,7 +47,8 @@ function App() {
       <header><Points teams={appProps.teams.teams} /></header>
       <nav><Question question={appProps.question}/></nav>
       <section><Answers answers={appProps.answers.answers} /></section>
-      <aside>        WRONG!      </aside>
+      <aside><Wrong wrong={appProps.wrong}/></aside>
+      {appProps.break?<div className="Overlay" ><span>Waiting for next question!</span></div>:null}
     </div>
   );
 }

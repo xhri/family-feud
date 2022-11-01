@@ -1,11 +1,18 @@
 body {
+  --primary-color: #404258;
+  --secondary-color: #474E68;
+  --additional-color:  #50577A;
+  --light-color: #6B728E;
+  --text-color: #000000;
+
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
     'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  background-color: #336699;
+  background-color: var(--primary-color);
+
 }
 
 code {

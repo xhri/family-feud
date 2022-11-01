@@ -1,9 +1,11 @@
 .Question {
-  border: 5px solid black;
+  border: 5px solid var(--additional-color);
   width: 100%;
   display: inline-block;
   margin-top: 2%;
-  background-color: yellow;
+  background-color: var(--light-color);
   margin-bottom: 2%;
+  border-radius: 2em;
+  font-size: 1.8em;
 }
 

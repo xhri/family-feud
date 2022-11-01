@@ -1,29 +1,38 @@
 .Answer {
-  border: 5px solid black;
+  border: 3px solid var(--secondary-color);
   width: auto;
   min-width: 30%;
   margin-bottom: 1%;
-  margin-left: 10%;
-  margin-right: 10%;
-  background-color: black;
+  margin-left: 5%;
+  margin-right: 0%;
+  background-color: var(--secondary-color);
+  border-radius: 2em;
+  color: var(--text-color);
+  font-size: 1.7em;
 }
 
+.Appear{
+  background-color: var(--light-color);
+  transition: background-color 4s, color 4s;
+}
 
 .AnswerName {
   width: 100%;
   display: inline-block;
-  width:69%;
-  transition: background-color 4s;
-  background-color: white;
+  width:79%;
+  border-top-left-radius: 2em;
+  border-bottom-left-radius: 2em;
 }
-.AnswerName.Hidden {
-  background-color: black;
+.Appear.Hidden {
+  background-color: var(--primary-color);
+  color: var(--primary-color);
 }
 
 .AnswerPoints {
   display: inline-block;
-  width:30%;
-  background-color: white;
+  width:20%;
+  border-top-right-radius: 2em;
+  border-bottom-right-radius: 2em;
 }
 
 

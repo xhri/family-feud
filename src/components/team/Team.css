@@ -1,8 +1,14 @@
 .Team {
-  border: 5px solid black;
+  border: 5px solid var(--additional-color);
   width: auto;
   display: inline-block;
   min-width: 20%;
-  margin-top: 2%;
+  border-radius: 4em;
+  margin:2% 5% 0% 5%;
+  font-size: 1.6em;
+}
+
+.Team.Active {
+ background-color: var(--light-color);
 }
 
