@@ -8,10 +8,11 @@ import { GameData } from './types/GameData';
 import './App.css';
 
 function App() {
+
   const [gameData, setGameData] = useState<GameData>({mistakes:0, question:"", answers:[], teams:[], break:true} as GameData);
 
   useEffect(() => {
-    const timer = setInterval(async () => setGameData(await GameService.GetGame()), 1200);
+    const timer = setInterval(async () => {setGameData(await GameService.GetGame())}, 1000);
     return () => clearTimeout(timer);
   }, []);
 
