@@ -1,11 +1,10 @@
-import Answer from "./Answer";
-import Team from "./Team";
+import { Answer } from "./Answer";
+import { Team } from "./Team";
 
-export default interface GameData {
+export interface GameData {
     question: string,
     answers: Array<Answer>,
     break: boolean,
-    points: Array<Team>,
-    activeTeam: number,
-    wrong: number
+    teams: Array<Team>,
+    mistakes: number
   }

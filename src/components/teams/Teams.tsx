@@ -1,9 +1,9 @@
 import React from 'react';
-import PointsProps from './PointsProps';
-import './Points.css';
+import { TeamsProps } from './TeamsProps';
+import './Teams.css';
 import Team from '../team/Team';
 
-function Points(props : PointsProps) {
+function Teams(props : TeamsProps) {
   return (
     <div className="Points">
       {
@@ -13,4 +13,4 @@ function Points(props : PointsProps) {
   );
 }
 
-export default Points;
+export default Teams;

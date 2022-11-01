@@ -1,54 +1,27 @@
 import { useEffect, useState } from 'react';
-import './App.css';
 import Question from './components/question/Question';
 import Answers from './components/answers/Answers';
-import AnswerProps from './components/answer/AnswerProps';
-import Points from './components/points/Points';
-import TeamProps from './components/team/TeamProps';
 import GameService from "./GameService"
-import AppProps from './AppProps';
-import AnswersProps from './components/answers/AnswersProps';
-import PointsProps from './components/points/PointsProps';
-import Wrong from './components/wrong/Wrong';
+import Mistakes from './components/mistakes/Mistakes';
+import Teams from './components/teams/Teams';
+import { GameData } from './types/GameData';
+import './App.css';
 
 function App() {
-  const [appProps, setAppProps] = useState<AppProps>(new AppProps("example", new AnswersProps(), new PointsProps(), 0, true));
-  //const [result, setResult] = useState<Array<AnswerProps>>([]);
+  const [gameData, setGameData] = useState<GameData>({mistakes:0, question:"", answers:[], teams:[], break:true} as GameData);
 
   useEffect(() => {
-    const timer = setInterval(async () => {
-
-      let result = await GameService.GetGame();
-      let answers : AnswersProps = new AnswersProps();
-      answers.answers = [];
-      result.answers.map(a => {answers.answers = [...answers.answers, new AnswerProps(a.key, a.answerValue, a.answered, a.points)]});
-
-      let points : PointsProps = new PointsProps();
-      points.teams = [];
-      result.points.map(t => {points.teams = [...points.teams, new TeamProps(t.key, t.points, t.name, result.activeTeam==t.key)]});
-
-      setAppProps(new AppProps(result.question, answers, points, result.wrong, result.break))
-
-
-      //let x = Math.floor(Math.random() * 7);
-      //console.log(x);
-      //if (x ==4)
-      //{
-      //  setResult(result => [...result, new AnswerProps(result.length.toString(), "odpowiedz", false, 2000)]);
-      //}
-    }, 1200);
-
+    const timer = setInterval(async () => setGameData(await GameService.GetGame()), 1200);
     return () => clearTimeout(timer);
   }, []);
 
-
   return (
     <div className="App">
-      <header><Points teams={appProps.teams.teams} /></header>
-      <nav><Question question={appProps.question}/></nav>
-      <section><Answers answers={appProps.answers.answers} /></section>
-      <aside><Wrong wrong={appProps.wrong}/></aside>
-      {appProps.break?<div className="Overlay" ><span>Waiting for next question!</span></div>:null}
+      <header><Teams teams={gameData.teams} /></header>
+      <nav><Question question={gameData.question}/></nav>
+      <section><Answers answers={gameData.answers} /></section>
+      <aside><Mistakes mistakes={gameData.mistakes}/></aside>
+      {gameData.break?<div className="Overlay" ><span>Waiting for next question!</span></div>:null}
     </div>
   );
 }

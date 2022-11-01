@@ -1,8 +1,8 @@
 import React from 'react';
-import TeamProps from './TeamProps';
+import  { Team as TeamType } from '../../types/Team';
 import './Team.css';
 
-function Team(props : TeamProps) {
+function Team(props : TeamType) {
   return (
     <div className={`Team ${props.active?'Active' : ''}`}>
         <p>

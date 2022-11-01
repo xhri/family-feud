@@ -1,5 +1,5 @@
 import axios from "axios";
-import GameData from "./types/GameData";
+import { GameData } from "./types/GameData";
 
 const apiClient = axios.create({
     baseURL: "http://localhost:5000",

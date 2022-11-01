@@ -1,8 +1,5 @@
-import AnswerProps from "../answer/AnswerProps";
+import { Answer } from "../../types/Answer";
 
-class AnswersProps{
-    answers: Array<AnswerProps> = [];
-}
-
-
-export default AnswersProps;
+export class AnswersProps{
+    answers: Array<Answer> = [];
+};
