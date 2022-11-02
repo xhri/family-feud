@@ -1,12 +1,14 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useContext, useEffect, useRef, useState } from 'react';
 import  { Answer as AnswerType } from '../../types/Answer';
 import './Answer.css';
 import correct from "../../assets/correct.mp3";
+import { SettingsContext } from '../../SettingsContext';
 
 function Answer(props : AnswerType) {
   let audio = new Audio(correct);
+  const settings = useContext(SettingsContext);
   useEffect(()=>{
-    if (props.answered){
+    if (props.answered && !settings.soundOff){
       audio.play();
     }
   }, [props.answered])

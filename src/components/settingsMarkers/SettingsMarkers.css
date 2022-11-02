@@ -1,0 +1,14 @@
+.SettingsMarkers {
+  position: absolute;
+  top: 2%;
+  left: 2%;
+}
+.Multiplier{
+  font-size: 4em;
+  font-weight: 750;
+  color:white;
+}
+.NoSound{
+  width: 5em;
+}
+

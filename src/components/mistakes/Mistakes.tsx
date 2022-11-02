@@ -1,10 +1,12 @@
-import React, { useEffect } from 'react';
+import React, { useContext, useEffect } from 'react';
 import { MistakesProps } from './MistakesProps';
 import './Mistakes.css';
 import mistake from "../../assets/mistake.mp3";
+import { SettingsContext } from '../../SettingsContext';
 
 function Mistakes(props : MistakesProps) {
   let audio = new Audio(mistake);
+  const settings = useContext(SettingsContext);
   const elements= []
   for (let i=0;i<props.mistakes;i++) {
     elements.push(
@@ -12,8 +14,8 @@ function Mistakes(props : MistakesProps) {
     )}
     
   useEffect(() => {
-    if (props.mistakes != 0)
-    audio.play()
+    if (props.mistakes != 0 && !settings.soundOff)
+      audio.play()
   },[props.mistakes])
   
   return (
