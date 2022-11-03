@@ -1,8 +1,10 @@
 import axios from "axios";
+import { Config } from "./config";
 import { GameData } from "./types/GameData";
 
+
 const apiClient = axios.create({
-    baseURL: "http://localhost:5000",
+    baseURL: Config.ApiUrl,
     headers: {
       "Content-type": "application/json",
     },

@@ -1,7 +1,7 @@
 import React, { useContext } from 'react';
 import QuestionProps from './QuestionProps';
 import './Question.css';
-import { SettingsContext } from '../../SettingsContext';
+import { SettingsContext } from '../../contexts/SettingsContext';
 
 function Question(props : QuestionProps) {
   const settings = useContext(SettingsContext);

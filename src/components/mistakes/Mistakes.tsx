@@ -2,7 +2,7 @@ import React, { useContext, useEffect } from 'react';
 import { MistakesProps } from './MistakesProps';
 import './Mistakes.css';
 import mistake from "../../assets/mistake.mp3";
-import { SettingsContext } from '../../SettingsContext';
+import { SettingsContext } from '../../contexts/SettingsContext';
 
 function Mistakes(props : MistakesProps) {
   let audio = new Audio(mistake);

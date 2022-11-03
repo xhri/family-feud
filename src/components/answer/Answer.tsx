@@ -2,7 +2,7 @@ import React, { useContext, useEffect, useRef, useState } from 'react';
 import  { Answer as AnswerType } from '../../types/Answer';
 import './Answer.css';
 import correct from "../../assets/correct.mp3";
-import { SettingsContext } from '../../SettingsContext';
+import { SettingsContext } from '../../contexts/SettingsContext';
 
 function Answer(props : AnswerType) {
   let audio = new Audio(correct);
