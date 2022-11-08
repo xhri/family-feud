@@ -6,7 +6,7 @@ import './Answers.css';
 function Answers(props : AnswersProps) {
   return (
     <div className="Answers">
-      {props.answers.map(a => <Answer key={a.key} value={a.value} answered={a.answered} points={a.points} />)}
+      {props.answers.map(a => <Answer key={a.key} id={a.key} value={a.value} answered={a.answered} points={a.points} />)}
     </div>
   );
 }

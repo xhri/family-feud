@@ -11,6 +11,7 @@ import SettingsMarkers from './components/settingsMarkers/SettingsMarkers';
 import AudioComponent from './components/audio/AudioComponent';
 import AdminLogin from './components/adminLogin/AdminLogin';
 import { AdminContext } from './contexts/AdminContext';
+import { createTheme, ThemeProvider } from '@mui/material';
 
 function App() {
 
@@ -22,18 +23,41 @@ function App() {
     return () => clearTimeout(timer);
   }, []);
 
+
+  const theme = createTheme({
+    palette: {
+      background: {
+        paper: '#fff',
+      },
+      primary:{
+        main:'#1976d2',
+        light: '#c8ffc8',
+        dark: '#c8ffc8'
+      },
+      text: {
+        primary: '#173A5E',
+        secondary: '#46505A',
+      },
+      action: {
+        active: '#001E3C',
+      }
+    },
+  });
+
   return (
     <div className="App">
       <SettingsContext.Provider value={gameData.settings}>
         <AdminContext.Provider value={{authenticated, setAuthenticated}}>
-          <AdminLogin />
-          <SettingsMarkers />
-          <header><Teams teams={gameData.teams} /></header>
-          <nav><Question question={gameData.question} /></nav>
-          <section><Answers answers={gameData.answers} /></section>
-          <aside><Mistakes mistakes={gameData.mistakes}/></aside>
-          {gameData.settings.break?<div className="Overlay" ><span>Waiting for next question!</span></div>:null}
-          <AudioComponent />
+          <ThemeProvider theme={theme}>
+            <AdminLogin />
+            <SettingsMarkers />
+            <header><Teams teams={gameData.teams} /></header>
+            <nav><Question question={gameData.question} /></nav>
+            <section><Answers answers={gameData.answers} /></section>
+            <aside><Mistakes mistakes={gameData.mistakes}/></aside>
+            {gameData.settings.break?<div className="Overlay" ><span>Waiting for next question!</span></div>:null}
+            <AudioComponent />
+          </ThemeProvider>
         </AdminContext.Provider>
       </SettingsContext.Provider>
     </div>
