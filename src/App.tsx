@@ -1,7 +1,7 @@
 import { createContext, useEffect, useState } from 'react';
 import Question from './components/question/Question';
 import Answers from './components/answers/Answers';
-import GameService from "./GameService"
+import GameService from "./services/GameService"
 import Mistakes from './components/mistakes/Mistakes';
 import Teams from './components/teams/Teams';
 import { GameData } from './types/GameData';

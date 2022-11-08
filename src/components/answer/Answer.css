@@ -10,9 +10,12 @@
   color: var(--text-color);
   font-size: 1.7em;
 }
+.AnswerPoints.Answered
+{
+  background-color:lightgreen;
+}
 
 .Appear{
-  background-color: var(--light-color);
   transition: background-color 4s, color 4s;
 }
 
@@ -22,10 +25,7 @@
   width:79%;
   border-top-left-radius: 2em;
   border-bottom-left-radius: 2em;
-}
-.Appear.Hidden {
-  background-color: var(--primary-color);
-  color: var(--primary-color);
+  background-color: var(--light-color);
 }
 
 .AnswerPoints {
@@ -33,6 +33,12 @@
   width:20%;
   border-top-right-radius: 2em;
   border-bottom-right-radius: 2em;
+  background-color: var(--light-color);
+}
+
+.Appear.Hidden {
+  background-color: var(--primary-color);
+  color: var(--primary-color);
 }
 
 

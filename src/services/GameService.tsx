@@ -1,6 +1,6 @@
 import axios from "axios";
-import { Config } from "./config";
-import { GameData } from "./types/GameData";
+import { Config } from "../config";
+import { GameData } from "../types/GameData";
 
 
 const apiClient = axios.create({
