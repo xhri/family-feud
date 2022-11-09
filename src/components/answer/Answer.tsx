@@ -5,6 +5,7 @@ import { AdminContext } from '../../contexts/AdminContext';
 import { Box, Grid } from '@mui/material';
 import GameService from '../../services/GameService';
 import { AnswerProps } from './AnswerProps';
+import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
 
 function Answer(props : AnswerProps) {
   
@@ -21,7 +22,7 @@ function Answer(props : AnswerProps) {
   return (
     <Grid container justifyContent="center" sx={{marginBottom:'2%'}}>
       <Box
-        onClick={revealAnswer}
+        onClick={authenticated?revealAnswer:()=>{}}
         sx={{
           bgcolor: props.answered?'primary.light':'background.paper',
           transition: !authenticated?'background-color 4s, color 4s':'',
@@ -34,6 +35,14 @@ function Answer(props : AnswerProps) {
           fontWeight: 'medium',
           minHeight: '1.5em'
         }}>
+        {authenticated && !props.answered &&
+          <Box
+            sx={{
+              display: 'inline-block',
+              width: '10%',
+            }}>
+            <VisibilityOffIcon/>
+          </Box>}
         <Box 
           sx={{
             fontSize: 25,  

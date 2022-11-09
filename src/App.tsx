@@ -34,6 +34,9 @@ function App() {
         light: '#c8ffc8',
         dark: '#c8ffc8'
       },
+      secondary:{
+        main:'#8cd4f5'
+      },
       text: {
         primary: '#173A5E',
         secondary: '#46505A',
@@ -50,12 +53,10 @@ function App() {
         <AdminContext.Provider value={{authenticated, setAuthenticated}}>
           <ThemeProvider theme={theme}>
             <AdminLogin />
-            <SettingsMarkers />
             <header><Teams teams={gameData.teams} /></header>
             <nav><Question question={gameData.question} /></nav>
             <section><Answers answers={gameData.answers} /></section>
             <aside><Mistakes mistakes={gameData.mistakes}/></aside>
-            {gameData.settings.break?<div className="Overlay" ><span>Waiting for next question!</span></div>:null}
             <AudioComponent />
           </ThemeProvider>
         </AdminContext.Provider>

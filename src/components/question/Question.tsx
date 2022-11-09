@@ -17,7 +17,7 @@ function Question(props : QuestionProps) {
   return (
     <Grid container justifyContent="center" sx={{marginBottom:'2%'}}>
       <Box
-        onClick={toogleQuestion}
+        onClick={authenticated?toogleQuestion:()=>{}}
         sx={{
           bgcolor: 'background.paper',
           transition: !authenticated ? 'color 4s':'',

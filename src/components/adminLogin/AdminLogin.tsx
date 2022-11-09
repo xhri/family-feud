@@ -10,6 +10,8 @@ import TextField from '@mui/material/TextField';
 import DialogActions from '@mui/material/DialogActions';
 import { Config } from '../../config';
 import { AdminContext } from '../../contexts/AdminContext';
+import AddIcon from '@mui/icons-material/Add';
+import { Box, Divider, Drawer, List, ListItem, ListItemButton, ListItemIcon, ListItemText } from '@mui/material';
 
 function AdminLogin() {
   const settings = useContext(SettingsContext);
@@ -17,6 +19,7 @@ function AdminLogin() {
   const [open, setOpen] = React.useState(false);
   const [wrongPassword, setWrongPassword] = React.useState(false);
   const [password, setPassword] = React.useState("");
+  const [drawerOpen, setDrawerOpen] = React.useState(false);
   
   const handleClickOpen = () => {
     setOpen(true);
@@ -41,6 +44,10 @@ function AdminLogin() {
     }
   };
 
+  const toggleDrawer = () => {
+    setDrawerOpen(x => !x);
+  }
+
   const Logout = () => {
     setAuthenticated(false);
   };
@@ -53,7 +60,7 @@ function AdminLogin() {
 
   return (
     <div className="AdminLogin">
-      {authenticated?<Button variant="outlined" onClick={Logout}>Logout</Button>:<Button variant="outlined" onClick={handleClickOpen}>Admin</Button>}
+      {authenticated?<Button variant="outlined" onClick={toggleDrawer}>Menu</Button>:<Button variant="outlined" onClick={handleClickOpen}>Admin</Button>}
       <Dialog open={open} onClose={handleClose}>
         <DialogTitle>Admin login</DialogTitle>
         <DialogContent>
@@ -80,6 +87,43 @@ function AdminLogin() {
           <Button onClick={startAdminMode}>Login</Button>
         </DialogActions>
       </Dialog>
+      <Drawer
+            anchor='left'
+            open={drawerOpen}
+            onClose={toggleDrawer}
+          >
+          <Box
+            sx={{
+              width: 300
+            }}>
+            <List>
+                <ListItem disablePadding>
+                  <ListItemButton>
+                  <ListItemIcon><AddIcon/></ListItemIcon>
+                    <ListItemText primary="Add team" />
+                  </ListItemButton>
+                </ListItem>
+                <ListItem disablePadding>
+                  <ListItemButton>
+                    <ListItemText primary="Reset teams" />
+                  </ListItemButton>
+                </ListItem>
+            </List>
+            <Divider />
+            <List>
+                <ListItem disablePadding>
+                  <ListItemButton>
+                    <ListItemText primary="Add team" />
+                  </ListItemButton>
+                </ListItem>
+                <ListItem disablePadding>
+                  <ListItemButton>
+                    <ListItemText primary="Reset teams" />
+                  </ListItemButton>
+                </ListItem>
+            </List>
+          </Box>
+      </Drawer>
     </div>
   );
 }
