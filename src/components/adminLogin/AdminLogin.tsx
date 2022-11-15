@@ -17,6 +17,7 @@ import TeamsService from '../../services/TeamsService';
 import ToggleOnIcon from '@mui/icons-material/ToggleOn';
 import ToggleOffIcon from '@mui/icons-material/ToggleOff';
 import SettingsService from '../../services/SettingsService';
+import QuestionsDrawer from '../questionsDrawer/QuestionsDrawer';
 
 function AdminLogin() {
   const settings = useContext(SettingsContext);
@@ -25,6 +26,7 @@ function AdminLogin() {
   const [wrongPassword, setWrongPassword] = React.useState(false);
   const [password, setPassword] = React.useState("");
   const [drawerOpen, setDrawerOpen] = React.useState(false);
+  const [questionDrawerOpen, setQuestionDrawerOpen] = React.useState(false);
 
   // AddTeam
   const [addTeamOpen, setAddTeamOpen] = React.useState(false);
@@ -77,6 +79,10 @@ function AdminLogin() {
     setDrawerOpen(x => !x);
   }
 
+  const toggleQuestionsDrawer = () => {
+    setQuestionDrawerOpen(x => !x);
+  }
+  
   const Logout = () => {
     setAuthenticated(false);
   };
@@ -124,6 +130,7 @@ function AdminLogin() {
           <Button onClick={startAdminMode}>Login</Button>
         </DialogActions>
       </Dialog>
+      {/*Menu drawer */}
       <Drawer
             anchor='left'
             open={drawerOpen}
@@ -143,6 +150,11 @@ function AdminLogin() {
                 <ListItem disablePadding>
                   <ListItemButton>
                     <ListItemText primary="Reset teams" />
+                  </ListItemButton>
+                </ListItem>
+                <ListItem disablePadding>
+                  <ListItemButton onClick={toggleQuestionsDrawer}>
+                    <ListItemText primary="Questions" />
                   </ListItemButton>
                 </ListItem>
             </List>
@@ -166,6 +178,9 @@ function AdminLogin() {
             </List>
           </Box>
       </Drawer>
+
+      <QuestionsDrawer open={questionDrawerOpen} onClose={toggleQuestionsDrawer}/>
+
       {/* AddTeamDialog */}
       <Dialog open={addTeamOpen} onClose={handleCloseAddTeam}>
         <DialogTitle>Add team</DialogTitle>
