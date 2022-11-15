@@ -25,10 +25,16 @@ const apiClient = axios.create({
     return response.status;
   }
 
+  const AddMistake = async () => {
+    const response = await apiClient.post("/game/wrong");
+    return response.status;
+  }
+  
   const GameService = {
     GetGame,
     RevealAnswer,
-    RevealQuestion
+    RevealQuestion,
+    AddMistake
   }
   
   export default GameService;

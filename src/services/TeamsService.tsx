@@ -15,8 +15,20 @@ const apiClient = axios.create({
     return response.status;
   }
 
+  const AddTeam = async (name: string) => {
+    const response = await apiClient.post(`/teams/add/${name}`);
+    return response.status;
+  }  
+  
+  const RemoveTeam = async (key: number) => {
+    const response = await apiClient.post(`/teams/remove/${key}`);
+    return response.status;
+  }
+
   const TeamsService = {
     ChooseTeam,
+    AddTeam,
+    RemoveTeam
   }
   
   export default TeamsService;

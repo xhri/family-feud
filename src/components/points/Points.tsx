@@ -1,10 +1,13 @@
-import { Box, Grid } from '@mui/material';
+import { Box, Button, Grid } from '@mui/material';
 import { useContext } from 'react';
+import { AdminContext } from '../../contexts/AdminContext';
 import { SettingsContext } from '../../contexts/SettingsContext';
 import { PointsProps } from './PointsProps';
+import CheckCircleOutlineIcon from '@mui/icons-material/CheckCircleOutline';
 
 function Points(props : PointsProps) {
   
+  const { authenticated } = useContext(AdminContext);
   const settings = useContext(SettingsContext);
   return (
     <Grid container justifyContent="center" sx={{marginBottom:'2%'}}>
@@ -21,6 +24,16 @@ function Points(props : PointsProps) {
           minHeight: '1.5em',
           border: 1
         }}>
+          {
+            authenticated &&
+            <Box
+              sx={{
+                display: 'inline-block',
+                width: '10%'
+              }}>
+                <Button><CheckCircleOutlineIcon/>Finish!</Button>
+            </Box>
+          }
           {settings.pointsMultiplier!=1 &&
             <Box
               sx={{
@@ -32,7 +45,7 @@ function Points(props : PointsProps) {
           <Box
             sx={{
               display: 'inline-block',
-              width: settings.pointsMultiplier==1?'70%':'60%'
+              width: authenticated?(settings.pointsMultiplier==1?'60%':'50%'):(settings.pointsMultiplier==1?'70%':'60%')
             }}>
               Points
           </Box>

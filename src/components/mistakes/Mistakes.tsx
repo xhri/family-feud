@@ -3,10 +3,15 @@ import { MistakesProps } from './MistakesProps';
 import './Mistakes.css';
 import mistake from "../../assets/mistake.mp3";
 import { SettingsContext } from '../../contexts/SettingsContext';
+import { AdminContext } from '../../contexts/AdminContext';
+import { Box, Button } from '@mui/material';
+import CancelIcon from '@mui/icons-material/Cancel';
+import GameService from '../../services/GameService';
 
 function Mistakes(props : MistakesProps) {
   let audio = new Audio(mistake);
   const settings = useContext(SettingsContext);
+  const { authenticated } = useContext(AdminContext);
   const elements= []
   for (let i=0;i<props.mistakes;i++) {
     elements.push(
@@ -14,14 +19,18 @@ function Mistakes(props : MistakesProps) {
     )}
     
   useEffect(() => {
-    if (props.mistakes != 0 && !settings.soundOff)
+    if (props.mistakes != 0 && !settings.soundOff && !authenticated)
       audio.play()
   },[props.mistakes])
   
   return (
-    <div>
-    {elements}
-    </div>
+    <Box>
+        {
+          authenticated &&
+          <Box><Button onClick={GameService.AddMistake}><CancelIcon/>Add mistake</Button></Box>
+        }
+      <Box>{elements}</Box>
+    </Box>
   );
 }
 

@@ -11,7 +11,12 @@ import DialogActions from '@mui/material/DialogActions';
 import { Config } from '../../config';
 import { AdminContext } from '../../contexts/AdminContext';
 import AddIcon from '@mui/icons-material/Add';
+import LogoutIcon from '@mui/icons-material/Logout';
 import { Box, Divider, Drawer, List, ListItem, ListItemButton, ListItemIcon, ListItemText } from '@mui/material';
+import TeamsService from '../../services/TeamsService';
+import ToggleOnIcon from '@mui/icons-material/ToggleOn';
+import ToggleOffIcon from '@mui/icons-material/ToggleOff';
+import SettingsService from '../../services/SettingsService';
 
 function AdminLogin() {
   const settings = useContext(SettingsContext);
@@ -20,7 +25,31 @@ function AdminLogin() {
   const [wrongPassword, setWrongPassword] = React.useState(false);
   const [password, setPassword] = React.useState("");
   const [drawerOpen, setDrawerOpen] = React.useState(false);
+
+  // AddTeam
+  const [addTeamOpen, setAddTeamOpen] = React.useState(false);
+  const [teamName, setTeamName] = React.useState("");
   
+  const showAddTeam = () => {
+    setAddTeamOpen(true);
+  };
+
+  const handleTeamNameFieldChange = (event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    setTeamName(event.target.value);
+  }
+
+  const handleCloseAddTeam = () => {
+    setAddTeamOpen(false);
+    setTeamName('');
+  };
+
+  const addTeam = async () => {
+    await TeamsService.AddTeam(teamName);
+    handleCloseAddTeam();
+  };
+  // End
+
+
   const handleClickOpen = () => {
     setOpen(true);
   };
@@ -57,6 +86,14 @@ function AdminLogin() {
       startAdminMode();
     }
   }
+
+  const toggleSound = () => {
+    if (settings.soundOff){
+      SettingsService.SoundOn();
+    }else{
+      SettingsService.SoundOff();
+    }
+  };
 
   return (
     <div className="AdminLogin">
@@ -98,7 +135,7 @@ function AdminLogin() {
             }}>
             <List>
                 <ListItem disablePadding>
-                  <ListItemButton>
+                  <ListItemButton onClick={showAddTeam}>
                   <ListItemIcon><AddIcon/></ListItemIcon>
                     <ListItemText primary="Add team" />
                   </ListItemButton>
@@ -112,18 +149,48 @@ function AdminLogin() {
             <Divider />
             <List>
                 <ListItem disablePadding>
-                  <ListItemButton>
-                    <ListItemText primary="Add team" />
+                  <ListItemButton onClick={toggleSound}>
+                    <ListItemText primary="Sound" />
+                  <ListItemIcon>{settings.soundOff?<ToggleOffIcon/>:<ToggleOnIcon/>}</ListItemIcon>
                   </ListItemButton>
                 </ListItem>
+            </List>
+            <Divider />
+            <List>
                 <ListItem disablePadding>
-                  <ListItemButton>
-                    <ListItemText primary="Reset teams" />
+                  <ListItemButton onClick={Logout}>
+                  <ListItemIcon><LogoutIcon/></ListItemIcon>
+                    <ListItemText primary="Logout" />
                   </ListItemButton>
                 </ListItem>
             </List>
           </Box>
       </Drawer>
+      {/* AddTeamDialog */}
+      <Dialog open={addTeamOpen} onClose={handleCloseAddTeam}>
+        <DialogTitle>Add team</DialogTitle>
+        <DialogContent>
+          <DialogContentText>
+            Give team name
+          </DialogContentText>
+          <TextField
+            autoFocus
+            onChange={handleTeamNameFieldChange}
+            value={teamName}
+            margin="dense"
+            id="name"
+            label="Team name"
+            type="text"
+            fullWidth
+            variant="standard"
+            //onKeyUp={handleEnterClick}
+          />
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={handleCloseAddTeam}>Cancel</Button>
+          <Button onClick={addTeam}>Add</Button>
+        </DialogActions>
+      </Dialog>
     </div>
   );
 }
