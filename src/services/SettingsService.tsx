@@ -10,19 +10,25 @@ const apiClient = axios.create({
     },
   });
   
-
   const SoundOn = async () => {
     const response = await apiClient.post("/settings/sound/on");
     return response.status;
-  }
+  };
+
   const SoundOff = async () => {
     const response = await apiClient.post("/settings/sound/off");
     return response.status;
-  }
+  };
+
+  const SetMultiplier = async (multiplier: number) => {
+    const response = await apiClient.post(`/settings/multiplier/${multiplier}`);
+    return response.status;
+  };
   
   const SettingsService = {
     SoundOn,
-    SoundOff
-  }
+    SoundOff,
+    SetMultiplier
+  };
   
   export default SettingsService;

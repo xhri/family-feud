@@ -1,6 +1,6 @@
 import React, { ChangeEvent, ChangeEventHandler, useContext } from 'react';
 import './AdminLogin.css';
-import { SettingsContext } from '../../contexts/SettingsContext';
+import { SettingsContext } from '../../../contexts/SettingsContext';
 import Button from '@mui/material/Button';
 import Dialog from '@mui/material/Dialog';
 import DialogTitle from '@mui/material/DialogTitle';
@@ -8,16 +8,20 @@ import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import TextField from '@mui/material/TextField';
 import DialogActions from '@mui/material/DialogActions';
-import { Config } from '../../config';
-import { AdminContext } from '../../contexts/AdminContext';
+import { Config } from '../../../config';
+import { AdminContext } from '../../../contexts/AdminContext';
 import AddIcon from '@mui/icons-material/Add';
 import LogoutIcon from '@mui/icons-material/Logout';
 import { Box, Divider, Drawer, List, ListItem, ListItemButton, ListItemIcon, ListItemText } from '@mui/material';
-import TeamsService from '../../services/TeamsService';
+import TeamsService from '../../../services/TeamsService';
 import ToggleOnIcon from '@mui/icons-material/ToggleOn';
 import ToggleOffIcon from '@mui/icons-material/ToggleOff';
-import SettingsService from '../../services/SettingsService';
+import SettingsService from '../../../services/SettingsService';
 import QuestionsDrawer from '../questionsDrawer/QuestionsDrawer';
+import QuestionMarkIcon from '@mui/icons-material/QuestionMark';
+import MultiplierDialog from '../dialogs/MultiplierDialog';
+import CloseIcon from '@mui/icons-material/Close';
+import AddTeamDialog from '../addTeamDialog/AddTeamDialog';
 
 function AdminLogin() {
   const settings = useContext(SettingsContext);
@@ -27,29 +31,15 @@ function AdminLogin() {
   const [password, setPassword] = React.useState("");
   const [drawerOpen, setDrawerOpen] = React.useState(false);
   const [questionDrawerOpen, setQuestionDrawerOpen] = React.useState(false);
+  const [multiplierDialogOpen, setMultiplierDialogOpen] = React.useState(false);
 
   // AddTeam
   const [addTeamOpen, setAddTeamOpen] = React.useState(false);
-  const [teamName, setTeamName] = React.useState("");
   
-  const showAddTeam = () => {
-    setAddTeamOpen(true);
+  const toggleAddTeam = () => {
+    setAddTeamOpen(x => !x);
   };
 
-  const handleTeamNameFieldChange = (event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-    setTeamName(event.target.value);
-  }
-
-  const handleCloseAddTeam = () => {
-    setAddTeamOpen(false);
-    setTeamName('');
-  };
-
-  const addTeam = async () => {
-    await TeamsService.AddTeam(teamName);
-    handleCloseAddTeam();
-  };
-  // End
 
 
   const handleClickOpen = () => {
@@ -81,6 +71,10 @@ function AdminLogin() {
 
   const toggleQuestionsDrawer = () => {
     setQuestionDrawerOpen(x => !x);
+  }
+
+  const toggleMultiplierDialog = () => {
+    setMultiplierDialogOpen(x => !x);
   }
   
   const Logout = () => {
@@ -142,19 +136,21 @@ function AdminLogin() {
             }}>
             <List>
                 <ListItem disablePadding>
-                  <ListItemButton onClick={showAddTeam}>
+                  <ListItemButton onClick={toggleAddTeam}>
                   <ListItemIcon><AddIcon/></ListItemIcon>
                     <ListItemText primary="Add team" />
                   </ListItemButton>
                 </ListItem>
                 <ListItem disablePadding>
-                  <ListItemButton>
-                    <ListItemText primary="Reset teams" />
+                  <ListItemButton onClick={toggleQuestionsDrawer}>
+                    <ListItemIcon><QuestionMarkIcon/></ListItemIcon>
+                    <ListItemText primary="Questions" />
                   </ListItemButton>
                 </ListItem>
                 <ListItem disablePadding>
-                  <ListItemButton onClick={toggleQuestionsDrawer}>
-                    <ListItemText primary="Questions" />
+                  <ListItemButton onClick={toggleMultiplierDialog}>
+                    <ListItemIcon><CloseIcon/></ListItemIcon>
+                    <ListItemText primary="Set multiplier" />
                   </ListItemButton>
                 </ListItem>
             </List>
@@ -179,33 +175,10 @@ function AdminLogin() {
           </Box>
       </Drawer>
 
+      <MultiplierDialog open={multiplierDialogOpen} onClose={toggleMultiplierDialog}/>
       <QuestionsDrawer open={questionDrawerOpen} onClose={toggleQuestionsDrawer}/>
+      <AddTeamDialog open={addTeamOpen} onClose={toggleAddTeam} />
 
-      {/* AddTeamDialog */}
-      <Dialog open={addTeamOpen} onClose={handleCloseAddTeam}>
-        <DialogTitle>Add team</DialogTitle>
-        <DialogContent>
-          <DialogContentText>
-            Give team name
-          </DialogContentText>
-          <TextField
-            autoFocus
-            onChange={handleTeamNameFieldChange}
-            value={teamName}
-            margin="dense"
-            id="name"
-            label="Team name"
-            type="text"
-            fullWidth
-            variant="standard"
-            //onKeyUp={handleEnterClick}
-          />
-        </DialogContent>
-        <DialogActions>
-          <Button onClick={handleCloseAddTeam}>Cancel</Button>
-          <Button onClick={addTeam}>Add</Button>
-        </DialogActions>
-      </Dialog>
     </div>
   );
 }

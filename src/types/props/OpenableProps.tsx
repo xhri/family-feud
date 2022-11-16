@@ -1,4 +1,5 @@
-export interface QuestionsDrawerProps{
+export interface OpenableProps 
+{
     open: boolean;
     onClose: () => void;
 };

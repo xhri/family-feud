@@ -1,5 +1,5 @@
-import { Box, Button, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle } from '@mui/material';
-import React, { useContext } from 'react';
+import { Box, Button, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, TextField } from '@mui/material';
+import React, { ChangeEvent, useContext } from 'react';
 import { AdminContext } from '../../contexts/AdminContext';
 import TeamsService from '../../services/TeamsService';
 import { TeamProps } from './TeamProps';
@@ -8,6 +8,8 @@ import AddIcon from '@mui/icons-material/Add';
 import RemoveIcon from '@mui/icons-material/Remove';
 import ToggleOnIcon from '@mui/icons-material/ToggleOn';
 import ToggleOffIcon from '@mui/icons-material/ToggleOff';
+import AddPointsDialog from '../adminComponents/dialogs/AddPointsDialog';
+import RemovePointsDialog from '../adminComponents/dialogs/RemovePointsDialog';
 
 function Team(props : TeamProps) {
   const { authenticated } = useContext(AdminContext);
@@ -15,6 +17,10 @@ function Team(props : TeamProps) {
   const [addPointsOpen, setAddPointsOpen] = React.useState(false);
   const [removePointsOpen, setRemovePointsOpen] = React.useState(false);
   
+  const toggleAddPointsOpen = () => setAddPointsOpen(x => !x);
+  const toggleRemovePointsOpen = () => setRemovePointsOpen(x => !x);
+
+
   const showRemoveTeam = () => {
     setRemoveTeamOpen(true);
   };
@@ -27,39 +33,6 @@ function Team(props : TeamProps) {
     await TeamsService.RemoveTeam(props.id);
     handleCloseRemoveTeam();
   };
-
-
-
-  const showAddPoints = () => {
-    setAddPointsOpen(true);
-  };
-
-  const handleCloseAddPoints = () => {
-    setAddPointsOpen(false);
-  };
-
-  const addPoints = async () => {
-    //await TeamsService.RemoveTeam(props.id);
-    handleCloseAddPoints();
-  };
-
-
-
-  const showRemovePoints = () => {
-    setRemovePointsOpen(true);
-  };
-
-  const handleCloseRemovePoints = () => {
-    setRemovePointsOpen(false);
-  };
-
-  const removePoints = async () => {
-    //await TeamsService.RemoveTeam(props.id);
-    handleCloseRemovePoints();
-  };
-
-
-
 
   const chooseTeam = async () => {      
     await TeamsService.ChooseTeam(props.id)
@@ -98,8 +71,8 @@ function Team(props : TeamProps) {
               <Button onClick={showRemoveTeam}><DeleteIcon/>Remove team</Button>
             </Box>
             <Box>
-              <Button onClick={showAddPoints}><AddIcon/>Add points</Button>
-              <Button onClick={showRemovePoints}><RemoveIcon/>Remove points</Button>
+              <Button onClick={toggleAddPointsOpen}><AddIcon/>Add points</Button>
+              <Button onClick={toggleRemovePointsOpen}><RemoveIcon/>Remove points</Button>
             </Box>
           </Box>
         }
@@ -117,32 +90,9 @@ function Team(props : TeamProps) {
           <Button onClick={removeTeam}>Remove</Button>
         </DialogActions>
       </Dialog>
-      {/* AddPointsDialog */}
-      <Dialog open={addPointsOpen} onClose={handleCloseAddPoints}>
-        <DialogTitle>Add points</DialogTitle>
-        <DialogContent>
-          <DialogContentText>
-            Are you sure you want to remove team {props.name}
-          </DialogContentText>
-        </DialogContent>
-        <DialogActions>
-          <Button onClick={handleCloseAddPoints}>Cancel</Button>
-          <Button onClick={addPoints}>Add</Button>
-        </DialogActions>
-      </Dialog>
-      {/* RemovePointsDialog */}
-      <Dialog open={removePointsOpen} onClose={handleCloseRemovePoints}>
-        <DialogTitle>Remove points</DialogTitle>
-        <DialogContent>
-          <DialogContentText>
-            Are you sure you want t
-          </DialogContentText>
-        </DialogContent>
-        <DialogActions>
-          <Button onClick={handleCloseRemovePoints}>Cancel</Button>
-          <Button onClick={removePoints}>Add</Button>
-        </DialogActions>
-      </Dialog>
+      
+      <AddPointsDialog teamNumber={props.id} open={addPointsOpen} onClose={toggleAddPointsOpen} />
+      <RemovePointsDialog teamNumber={props.id} open={removePointsOpen} onClose={toggleRemovePointsOpen} />
     </>
   );
 }

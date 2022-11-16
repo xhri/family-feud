@@ -9,7 +9,7 @@ import './App.css';
 import { SettingsContext } from './contexts/SettingsContext';
 import SettingsMarkers from './components/settingsMarkers/SettingsMarkers';
 import AudioComponent from './components/audio/AudioComponent';
-import AdminLogin from './components/adminLogin/AdminLogin';
+import AdminLogin from './components/adminComponents/adminLogin/AdminLogin';
 import { AdminContext } from './contexts/AdminContext';
 import { createTheme, ThemeProvider } from '@mui/material';
 
