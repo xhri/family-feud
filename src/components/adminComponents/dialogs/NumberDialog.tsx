@@ -22,7 +22,7 @@ function NumberDialog(props : NumberDialogProps) {
   };
 
   return (
-    <Dialog open={props.open} onClose={props.onClose} sx={{minWidth:300}}>
+    <Dialog open={props.open} onClose={props.onClose}  fullWidth sx={{minWidth:320}}>
         <DialogTitle>{props.title}</DialogTitle>
         <DialogContent>
           <DialogContentText>

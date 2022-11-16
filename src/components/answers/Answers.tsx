@@ -8,7 +8,7 @@ function Answers(props : AnswersProps) {
   return (
     <div className="Answers">
       <Points points={props.answers.filter(a => a.answered).reduce((sum, curr) => sum + curr.points, 0)}/>
-      {props.answers.map(a => <Answer key={a.key} id={a.key} value={a.value} answered={a.answered} points={a.points} />)}
+      {props.answers.map(a => <Answer key={a.id} id={a.id} value={a.value} answered={a.answered} points={a.points} />)}
     </div>
   );
 }

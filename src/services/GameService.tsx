@@ -13,28 +13,40 @@ const apiClient = axios.create({
   const GetGame = async () => {
     const response = await apiClient.get<GameData>("/game");
     return response.data;
-  }
+  };
 
   const RevealAnswer = async (key: number) => {
     const response = await apiClient.post(`/game/answer/${key}`);
     return response.status;
-  } 
+  };
 
   const RevealQuestion = async () => {
     const response = await apiClient.post("/settings/question/show");
     return response.status;
-  }
+  };
 
   const AddMistake = async () => {
     const response = await apiClient.post("/game/wrong");
     return response.status;
-  }
+  };
+
+  const ChooseQuestion = async (key: number) =>{
+    const response = await apiClient.post(`/game/question/${key}`);
+    return response.status;
+  };
+
+  const Finish = async () => {
+    const response = await apiClient.post("/game/finish");
+    return response.status;
+  };
   
   const GameService = {
     GetGame,
     RevealAnswer,
     RevealQuestion,
-    AddMistake
+    AddMistake,
+    ChooseQuestion,
+    Finish
   }
   
   export default GameService;

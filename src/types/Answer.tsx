@@ -1,5 +1,5 @@
 export interface Answer {
-    key: number,
+    id: number,
     value: string,
     points: number,
     answered: boolean,

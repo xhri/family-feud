@@ -4,8 +4,9 @@ import { SettingsContext } from '../../contexts/SettingsContext';
 import { AdminContext } from '../../contexts/AdminContext';
 import { Box, Grid } from '@mui/material';
 import GameService from '../../services/GameService';
-import { AnswerProps } from './AnswerProps';
+import { Answer as AnswerProps } from '../../types/Answer';
 import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
+
 
 function Answer(props : AnswerProps) {
   

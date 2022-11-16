@@ -1,11 +1,11 @@
 import React, { useContext } from 'react';
-import QuestionProps from './QuestionProps';
 import { SettingsContext } from '../../contexts/SettingsContext';
 import { Box, Grid } from '@mui/material';
 import { AdminContext } from '../../contexts/AdminContext';
 import VisibilityIcon from '@mui/icons-material/Visibility';
 import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
 import GameService from '../../services/GameService';
+import QuestionProps from './QuestionProps';
 
 function Question(props : QuestionProps) {
   const { authenticated } = useContext(AdminContext);

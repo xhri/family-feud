@@ -2,7 +2,7 @@ import { Box, Button, Dialog, DialogActions, DialogContent, DialogContentText, D
 import React, { ChangeEvent, useContext } from 'react';
 import { AdminContext } from '../../contexts/AdminContext';
 import TeamsService from '../../services/TeamsService';
-import { TeamProps } from './TeamProps';
+import { Team as TeamProps } from '../../types/Team';
 import DeleteIcon from '@mui/icons-material/Delete';
 import AddIcon from '@mui/icons-material/Add';
 import RemoveIcon from '@mui/icons-material/Remove';
@@ -90,7 +90,7 @@ function Team(props : TeamProps) {
           <Button onClick={removeTeam}>Remove</Button>
         </DialogActions>
       </Dialog>
-      
+
       <AddPointsDialog teamNumber={props.id} open={addPointsOpen} onClose={toggleAddPointsOpen} />
       <RemovePointsDialog teamNumber={props.id} open={removePointsOpen} onClose={toggleRemovePointsOpen} />
     </>

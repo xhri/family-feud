@@ -23,7 +23,7 @@ function AddTeamDialog(props : OpenableProps) {
   };
 
   return (
-    <Dialog open={props.open} onClose={props.onClose}  sx={{minWidth:400}}>
+    <Dialog open={props.open} onClose={props.onClose} fullWidth sx={{minWidth:400}}>
         <DialogTitle>Add team</DialogTitle>
         <DialogContent>
           <DialogContentText>

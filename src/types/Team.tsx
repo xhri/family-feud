@@ -1,5 +1,5 @@
 export interface Team {
-    key: number,
+    id: number,
     name: string,
     points: number,
     active: boolean

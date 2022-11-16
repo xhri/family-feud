@@ -40,13 +40,13 @@ function QuestionsDrawer(props : OpenableProps) {
       >
       <Box
         sx={{
-          width: 450
+          width: 500
         }}>
           {
             loading ?
             <CircularProgress sx={{margin:'20%', marginLeft:'35%'}}/> :
             <List>
-              {data.map(q => <QuestionsListItem key={q.key} value={q.value} answers={q.answers} />)}
+              {data.map(q => <QuestionsListItem key={q.id} value={q.value} answers={q.answers} id={q.id} />)}
           </List>
           }        
         <Divider/>

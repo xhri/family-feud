@@ -12,6 +12,7 @@ import AudioComponent from './components/audio/AudioComponent';
 import AdminLogin from './components/adminComponents/adminLogin/AdminLogin';
 import { AdminContext } from './contexts/AdminContext';
 import { createTheme, ThemeProvider } from '@mui/material';
+import Menu from './components/adminComponents/menu/Menu';
 
 function App() {
 
@@ -53,6 +54,7 @@ function App() {
         <AdminContext.Provider value={{authenticated, setAuthenticated}}>
           <ThemeProvider theme={theme}>
             <AdminLogin />
+            <Menu />
             <header><Teams teams={gameData.teams} /></header>
             <nav><Question question={gameData.question} /></nav>
             <section><Answers answers={gameData.answers} /></section>

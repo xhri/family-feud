@@ -6,7 +6,7 @@ function Teams(props : TeamsProps) {
   return (
     <div className="Points">
       {
-      props.teams.map(t => <Team id={t.key} points={t.points} name={t.name} active={t.active} key={t.key}  />)
+      props.teams.map(t => <Team id={t.id} points={t.points} name={t.name} active={t.active} key={t.id}  />)
       }
     </div>
   );
