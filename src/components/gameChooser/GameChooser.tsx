@@ -2,15 +2,34 @@ import { Box, Button, List, ListItem, ListItemButton, ListItemIcon, ListItemText
 import React, { useState } from 'react';
 import Codenames from '../../codenames/components/codenames/Codenames';
 import CodenamesCaptain from '../../codenames/components/codenamesCaptain/CodenamesCaptain';
-import FamilyFeud from '../familyFeud/FamilyFeud';
-import FamilyFeudButton from '../familyFeudButton/FamilyFeudButton';
+import SettingsService from '../../codenames/services/SettingsService';
+import { GameContext } from '../../contexts/GameContext';
+import FamilyFeud from '../../familyFeud/components/familyFeud/FamilyFeud';
+import FamilyFeudButton from '../../familyFeud/components/familyFeudButton/FamilyFeudButton';
+import LoginScreen from '../loginScreen/LoginScreen';
 import { GameType } from './GameType';
+import HomeIcon from '@mui/icons-material/Home';
+import CodenamesAdmin from '../../codenames/components/codenamesAdmin/CodenamesAdmin';
+import { Config } from '../../config';
 
 function GameChooser() {
     const [game, setGame] = useState<GameType>(GameType.None);
 
   return (
-    <>
+    <GameContext.Provider value={{game, setGame}}>
+    <Box
+        sx={{
+            position: 'absolute',
+            top: '0.5%',
+            left: '0.5%',
+            zIndex: 5,
+        }}>
+            {
+                game != GameType.None &&
+                <HomeIcon onClick={()=>setGame(GameType.None)} />
+            }      
+    </Box>
+
     {
         game == GameType.None &&
         <Box 
@@ -42,7 +61,12 @@ function GameChooser() {
                         </ListItem>
                         <ListItem disablePadding>
                             <ListItemButton onClick={()=>setGame(GameType.CodenamesCaptain)}>
-                                <ListItemText primaryTypographyProps={{fontSize: '50px'}} primary="Codenames captain" />
+                                <ListItemText primaryTypographyProps={{fontSize: '50px'}} primary="Codenames Captain" />
+                            </ListItemButton>
+                        </ListItem>
+                        <ListItem disablePadding>
+                            <ListItemButton onClick={()=>setGame(GameType.CodenamesAdmin)}>
+                                <ListItemText primaryTypographyProps={{fontSize: '50px'}} primary="Codenames Admin" />
                             </ListItemButton>
                         </ListItem>
                     </List>
@@ -59,13 +83,21 @@ function GameChooser() {
     }
     {
         game == GameType.CodenamesCaptain &&
-        <CodenamesCaptain />
+        <LoginScreen getPassword={SettingsService.GetPassword}>
+            <CodenamesCaptain />
+        </LoginScreen>
+    }
+    {
+        game == GameType.CodenamesAdmin &&
+        <LoginScreen getPassword={() => new Promise(r => r(Config.Password))}>
+            <CodenamesAdmin />
+        </LoginScreen>
     }
     {
         game == GameType.FamilyFeudButton &&
         <FamilyFeudButton />
     }
-    </>
+    </GameContext.Provider >
   );
 }
 

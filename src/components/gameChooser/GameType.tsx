@@ -4,5 +4,6 @@ export enum GameType {
     FamilyFeudFinale,
     FamilyFeudButton,
     CodenamesMain,
-    CodenamesCaptain
+    CodenamesCaptain,
+    CodenamesAdmin
   };

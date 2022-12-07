@@ -1,16 +1,16 @@
 import { ThemeProvider } from '@emotion/react';
 import React, { useEffect, useState } from 'react';
-import AdminLogin from '../../familyFeud/components/adminComponents/adminLogin/AdminLogin';
-import Menu from '../../familyFeud/components/adminComponents/menu/Menu';
-import Answers from '../../familyFeud/components/answers/Answers';
-import AudioComponent from '../../familyFeud/components/audio/AudioComponent';
-import Mistakes from '../../familyFeud/components/mistakes/Mistakes';
-import Question from '../../familyFeud/components/question/Question';
-import Teams from '../../familyFeud/components/teams/Teams';
-import { AdminContext } from '../../contexts/AdminContext';
-import { SettingsContext } from '../../familyFeud/contexts/SettingsContext';
-import GameService from '../../familyFeud/services/GameService';
-import { GameData } from '../../familyFeud/types/GameData';
+import AdminLogin from '../adminComponents/adminLogin/AdminLogin';
+import Menu from '../adminComponents/menu/Menu';
+import Answers from '../answers/Answers';
+import AudioComponent from '../audio/AudioComponent';
+import Mistakes from '../mistakes/Mistakes';
+import Question from '../question/Question';
+import Teams from '../teams/Teams';
+import { AdminContext } from '../../../contexts/AdminContext';
+import { SettingsContext } from '../../contexts/SettingsContext';
+import GameService from '../../services/GameService';
+import { GameData } from '../../types/GameData';
 
 function FamilyFeud() {
     
