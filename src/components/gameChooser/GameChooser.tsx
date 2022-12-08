@@ -11,6 +11,8 @@ import { GameType } from './GameType';
 import HomeIcon from '@mui/icons-material/Home';
 import CodenamesAdmin from '../../codenames/components/codenamesAdmin/CodenamesAdmin';
 import { Config } from '../../config';
+import JustOneMain from '../../justOne/components/justOneMain/JustOneMain';
+import JustOnePhone from '../../justOne/components/justOnePhone/JustOnePhone';
 
 function GameChooser() {
     const [game, setGame] = useState<GameType>(GameType.None);
@@ -36,9 +38,15 @@ function GameChooser() {
             display="flex"
             justifyContent="center"
             alignItems="center"
-            marginTop="100px">
-                <Box  sx={{ width: '100%', maxWidth: 600, bgcolor: 'background.paper', fontSize: '10em' }}>
+            marginTop="25px"
+            marginBottom="25px">
+                <Box  sx={{ width: '100%', maxWidth: 600, bgcolor: 'background.paper', fontSize: '10em' }} >
                     <List>
+                        <ListItem disablePadding>
+                            <ListItemButton onClick={()=>setGame(GameType.JustOnePhone)}>
+                                <ListItemText primaryTypographyProps={{fontSize: '50px'}} primary="Just One" />
+                            </ListItemButton>
+                        </ListItem>
                         <ListItem disablePadding>
                             <ListItemButton onClick={()=>setGame(GameType.FamilyFeud)}>
                                 <ListItemText primaryTypographyProps={{fontSize: '50px'}} primary="Family Feud" />
@@ -69,6 +77,11 @@ function GameChooser() {
                                 <ListItemText primaryTypographyProps={{fontSize: '50px'}} primary="Codenames Admin" />
                             </ListItemButton>
                         </ListItem>
+                        <ListItem disablePadding>
+                            <ListItemButton onClick={()=>setGame(GameType.JustOneMain)}>
+                                <ListItemText primaryTypographyProps={{fontSize: '50px'}} primary="Just One Main" />
+                            </ListItemButton>
+                        </ListItem>
                     </List>
                 </Box>
         </Box> 
@@ -80,6 +93,14 @@ function GameChooser() {
     {
         game == GameType.CodenamesMain &&
         <Codenames />
+    }
+    {
+        game == GameType.JustOneMain &&
+        <JustOneMain />
+    }
+    {
+        game == GameType.JustOnePhone &&
+        <JustOnePhone />
     }
     {
         game == GameType.CodenamesCaptain &&
