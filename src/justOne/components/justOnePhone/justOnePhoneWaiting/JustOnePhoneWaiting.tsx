@@ -10,7 +10,7 @@ function JustOnePhoneWaiting() {
                 <Grid item xs={6} >
                     <Box
                         sx={{
-                            minHeight:'28vh',
+                            minHeight:'25vh',
                             bgcolor: 'background.paper',
                             padding:'1vh',
                             boxShadow: 2,

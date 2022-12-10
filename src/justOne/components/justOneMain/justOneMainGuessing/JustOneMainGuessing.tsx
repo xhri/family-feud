@@ -73,7 +73,7 @@ function JustOneMainGuessing(props: Game) {
                         marginLeft: '30vw',
                         marginRight: '30vw'
                     }}>
-                    <p>Słowa:</p>
+                    <p>Zgaduje {props.activePlayer},  słowa:</p>
                 </Box>
             </Grid>
                 <WordList words={chooseWords(props)} />

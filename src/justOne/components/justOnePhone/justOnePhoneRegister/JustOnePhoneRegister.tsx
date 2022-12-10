@@ -44,7 +44,7 @@ function JustOnePhoneRegister() {
                     <Grid item xs={6} >
                         <Box
                             sx={{
-                                minHeight:'28vh',
+                                minHeight:'25vh',
                                 bgcolor: 'background.paper',
                                 padding:'1vh',
                                 boxShadow: 2,
@@ -60,7 +60,7 @@ function JustOnePhoneRegister() {
                     <Grid item xs={6} >
                         <Box
                             sx={{
-                                minHeight:'28vh',
+                                minHeight:'25vh',
                                 marginLeft: '6vw',
                                 marginRight: '6vw',
                                 paddingTop: '3vh'
@@ -86,7 +86,7 @@ function JustOnePhoneRegister() {
                     <Grid item xs={6} >
                         <Box
                             sx={{
-                                minHeight:'28vh',
+                                minHeight:'25vh',
                                 marginLeft: '5vw',
                                 marginRight: '5vw'
                             }}>
