@@ -111,7 +111,6 @@ function JustOneMainGuessing(props: Game) {
                             width: '50%'
                         }}>
                             { show ? "Następna tura!" : "Pokaż hasło!" }
-                            
                     </Button>
                 </Box>
             </Grid>
