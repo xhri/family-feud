@@ -4,10 +4,23 @@ const Password = "magicPassword";
 const redColor = "#C41E3A";
 const blueColor = "#0096FF";
 
+
+const TimerSecondsWriting = 100;
+const TimerSecondsGuessing = 60;
+const TimerRedMark = 15;
+const GuessOnTimer = false;
+const JustOne = {
+  TimerSecondsWriting,
+  TimerSecondsGuessing,
+  TimerRedMark,
+  GuessOnTimer
+};
+
   export const Config = {
     ApiUrl,
     Password,
     redColor,
-    blueColor
+    blueColor,
+    JustOne
   }
   

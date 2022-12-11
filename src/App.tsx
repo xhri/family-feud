@@ -1,6 +1,6 @@
 import './App.css';
 import { createTheme, ThemeProvider } from '@mui/material';
-import GameChooser from './components/gameChooser/GameChooser';
+import GameChooser from './common/components/gameChooser/GameChooser';
 
 function App() {
 
