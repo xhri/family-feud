@@ -2,7 +2,7 @@ import { Button, Dialog, DialogActions, DialogContent, DialogTitle, TextField } 
 import React, { ChangeEvent, useContext } from 'react';
 import { useState } from 'react';
 import { GameContext } from '../../contexts/GameContext';
-import { GameType } from '../../types/GameType';
+import { GameType } from '../gameChooser/GameType';
 import { LoginScreenProps } from './LoginScreenProps';
 
 function LoginScreen(props: LoginScreenProps) {

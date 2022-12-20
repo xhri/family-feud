@@ -16,11 +16,23 @@ const JustOne = {
   GuessOnTimer
 };
 
-  export const Config = {
-    ApiUrl,
-    Password,
-    redColor,
-    blueColor,
-    JustOne
-  }
+
+const TimerSecondsGuessingGTP = 30;
+const TimerRedMarkGTP = 10;
+const GuessOnTimerGTP = false;
+
+const GuessThePrice = {
+  TimerSecondsGuessingGTP,
+  TimerRedMarkGTP,
+  GuessOnTimerGTP
+};
+
+export const Config = {
+  ApiUrl,
+  Password,
+  redColor,
+  blueColor,
+  JustOne,
+  GuessThePrice
+}
   

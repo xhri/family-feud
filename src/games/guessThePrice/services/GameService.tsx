@@ -11,32 +11,32 @@ const apiClient = axios.create({
   });
   
   const GetGame = async () => {
-    const response = await apiClient.get<Game>("/justone/game");
+    const response = await apiClient.get<Game>("/guesstheprice/game");
     return response.data;
   };
   
   const StartGame = async () => {
-    const response = await apiClient.post("/justone/game/startgame");
+    const response = await apiClient.post("/guesstheprice/game/startgame");
     return response.status;
   };
   
   const NextTurn = async () => {
-    const response = await apiClient.post("/justone/game/nextturn");
+    const response = await apiClient.post("/guesstheprice/game/nextturn");
+    return response.status;
+  };
+  
+  const TimesUp = async () => {
+    const response = await apiClient.post("/guesstheprice/game/timesup");
     return response.status;
   };
   
   const AddPlayer = async (p: string) => {
-    const response = await apiClient.post(`/justone/game/player/${p}`);
+    const response = await apiClient.post(`/guesstheprice/game/player/${p}`);
     return response.status;
   };
   
-  const AddWord = async (p: string, word: string) => {
-    const response = await apiClient.post(`/justone/game/addword/${p}/${word}`);
-    return response.status;
-  };
-  
-  const AddPoint = async (p: number) => {
-    const response = await apiClient.post(`/justone/game/team/${p}/point`);
+  const Answer = async (p: string, a: number) => {
+    const response = await apiClient.post(`/guesstheprice/game/player/${p}/answer/${a}`);
     return response.status;
   };
 
@@ -45,8 +45,8 @@ const apiClient = axios.create({
     StartGame,
     NextTurn,
     AddPlayer,
-    AddWord,
-    AddPoint
+    TimesUp,
+    Answer
   }
   
   export default GameService;

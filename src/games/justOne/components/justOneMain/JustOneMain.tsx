@@ -1,44 +1,33 @@
-import { Box, Button, Grid } from '@mui/material';
-import React, { useEffect, useState } from 'react';
+import { Box } from '@mui/material';
+import { useEffect, useState } from 'react';
 import GameService from '../../services/GameService';
 import { Game } from '../../types/Game';
-import JustOneMainGame from './justOneMainGame/JustOneMainGame';
-import JustOneMainGuessing from './justOneMainGuessing/JustOneMainGuessing';
-import JustOneMainPreGame from './justOneMainPreGame/JustOneMainPreGame';
+import JustOneAddTeam from './justOneAddTeam/JustOneAddTeam';
+import JustOneTeamPlay from './justOneTeamPlay/JustOneTeamPlay';
 
 
 function JustOneMain() {
     
-    const [game, setGame] = useState<Game>({playing:false, players:[], question:undefined, activePlayer:undefined});
+    const [game, setGame] = useState<Game>({playing:false, teams:[], activeTeam:0, teamGames:[]});
 
     useEffect(() => {
         const timer = setInterval(async () => {setGame(await GameService.GetGame())}, 1000);
         return () => clearTimeout(timer);
       }, []);
 
-      const ready = (g: Game) => {
-        return g.players.every(p => (typeof p.word === 'string' && p.word.length > 0) || p.name == g.activePlayer);
-      };
+  const teamGame = () => game.teamGames.find(t => t.id == game.activeTeam)!;
 
   return (
-    <Box
-        display="flex"
-        justifyContent="center"
-        alignItems="center"
-        minHeight="100vh">
-            {
-                !game.playing &&
-                <JustOneMainPreGame players={game.players} activePlayer={game.activePlayer} playing={game.playing} question={game.question} />
-            }
-            {
-                game.playing && !ready(game) &&
-                <JustOneMainGame players={game.players} activePlayer={game.activePlayer} playing={game.playing} question={game.question} />
-            }
-            {
-                game.playing && ready(game) &&
-                <JustOneMainGuessing players={game.players} activePlayer={game.activePlayer} playing={game.playing} question={game.question} />
-            }
-    </Box>
+    <>
+      {
+          !game.playing &&
+          <JustOneAddTeam teams={game.teams} activeTeam={game.activeTeam} playing={game.playing} teamGames={game.teamGames} />
+      }
+      {
+          game.playing &&
+          <JustOneTeamPlay id={teamGame().id} players={teamGame().players} activePlayer={teamGame().activePlayer} playing={teamGame()!.playing} question={teamGame()!.question} />
+      }
+    </>
   );
 }
 

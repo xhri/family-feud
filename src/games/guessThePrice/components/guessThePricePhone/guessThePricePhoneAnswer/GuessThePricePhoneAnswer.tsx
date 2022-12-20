@@ -1,16 +1,12 @@
 import { Box, Button, Grid, TextField } from '@mui/material';
 import React, { ChangeEvent, useContext, useEffect, useState } from 'react';
-import { RegisterContext } from '../../../contexts/RegisterContext';
-import GameService from '../../../services/GameService';
-import { TeamGame } from '../../../types/TeamGame';
 import AreYouSure from '../../../../../common/components/gameComponents/areYouSure/AreYouSure';
+import { GuessThePricePhoneAnswerProps } from './GuessThePricePhoneAnswerProps';
 
 
-export function JustOnePhonePlay(props: TeamGame) {
+export function GuessThePricePhoneAnswer(props: GuessThePricePhoneAnswerProps) {
     
-    const { name } = useContext(RegisterContext);
-
-    const [word, setWord] = React.useState("");
+    const [answer, setAnswer] = React.useState(0);
     const [open, setOpen] = React.useState(false);
 
     const toggleOpen = () => {
@@ -18,23 +14,21 @@ export function JustOnePhonePlay(props: TeamGame) {
     };
     
     const handleTextFieldChange = (event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-        setWord(event.target.value);
+        setAnswer(+event.target.value);
       };
     
-    const setUserName = async () => {
-        if (setWord.length > 0)
+    const answerQuestion = async () => {
+        if (answer > 0)
         {
             toggleOpen();
         }
       };
 
-    const doChange = async () =>{
-        await GameService.AddWord(name, word);
-    };
+    const doChange = () => props.sendAnswer(answer);
 
     return (
             <>
-                <AreYouSure open={open} description={`Czy na pewno chcesz dać hasło '${word}'?`} onClose={toggleOpen} onAccept={doChange} />
+                <AreYouSure open={open} description={props.dialogText(answer)} onClose={toggleOpen} onAccept={doChange} />
                 <Grid container spacing={{ xs: 2 }} columns={{ xs: 6 }} >
                     <Grid item xs={6} >
                         <Box
@@ -49,7 +43,7 @@ export function JustOnePhonePlay(props: TeamGame) {
                                 marginLeft: '5vw',
                                 marginRight: '5vw'
                             }}>
-                            <p>Hasło to '{props.question}'</p>
+                            <p>{props.mainText}</p>
                         </Box>
                     </Grid>
                     <Grid item xs={6} >
@@ -67,15 +61,14 @@ export function JustOnePhonePlay(props: TeamGame) {
                                     }}
                                     autoFocus
                                     onChange={handleTextFieldChange}
-                                    value={word}
+                                    //value={answer}
                                     margin="dense"
-                                    id="word"
-                                    label="Podpowiedź"
+                                    id="answer"
+                                    label="Odpowiedź"
+                                    type="number"
                                     fullWidth
                                     variant="standard"
                                 />
-
-
                         </Box>
                     </Grid>
                     <Grid item xs={6} >
@@ -87,7 +80,7 @@ export function JustOnePhonePlay(props: TeamGame) {
                             }}>
                             <Button
                                 variant="outlined"
-                                onClick={setUserName}
+                                onClick={answerQuestion}
                                 sx={{
                                     minHeight:'20vh',
                                     width: '100%'

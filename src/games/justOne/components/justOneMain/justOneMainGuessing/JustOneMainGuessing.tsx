@@ -1,18 +1,20 @@
 import { Box, Button, Grid } from '@mui/material';
 import React, { useEffect, useState } from 'react';
-import Timer from '../../../../../common/components/timer/Timer';
+import { getOriginalNode } from 'typescript';
+import Timer from '../../../../../common/components/gameComponents/timer/Timer';
 import { Config } from '../../../../../config';
 import GameService from '../../../services/GameService';
 import { Game } from '../../../types/Game';
-import Word from '../word/Word';
-import WordList from '../wordList/WordList';
+import { TeamGame } from '../../../types/TeamGame';
+import Word from '../../../../../common/components/gameComponents/wordList/word/Word';
+import WordList from '../../../../../common/components/gameComponents/wordList/WordList';
 
 
-function JustOneMainGuessing(props: Game) {
+function JustOneMainGuessing(props: TeamGame) {
     
     const [show, setShow] = useState(false);
 
-    const chooseWords = (game: Game) => {
+    const chooseWords = (game: TeamGame) => {
         let result: string [] = [];
         let words = game.players.filter(p => p.name != game.activePlayer).map(p => p.word);
         
@@ -64,19 +66,20 @@ function JustOneMainGuessing(props: Game) {
         .replace("ł","l");
 
 
-    const buttonClick = async () => {
-        if (show){
-            await GameService.NextTurn();
-        }else{
-            setShow(true);
-        }
+    const good = async () => {
+        await GameService.AddPoint(props.id);
+        await GameService.NextTurn();
+    };
+
+    const bad = async () => {
+        await GameService.NextTurn();
     };
 
   return (
         <Grid container spacing={{ xs: 2 }} columns={{ xs: 6 }} >
            
             <Grid item xs={2} >
-                <Timer seconds={Config.JustOne.TimerSecondsGuessing} actionOnEnd={() => setShow(true) } redTimerMark={Config.JustOne.TimerRedMark} doAction={Config.JustOne.GuessOnTimer} />
+                <Timer height="18vh" seconds={Config.JustOne.TimerSecondsGuessing} actionOnEnd={() => setShow(true) } redTimerMark={Config.JustOne.TimerRedMark} doAction={Config.JustOne.GuessOnTimer} />
             </Grid>
             <Grid item xs={2} >
                 <Box
@@ -98,22 +101,69 @@ function JustOneMainGuessing(props: Game) {
             
             { show ? <><Grid item xs={2} /><Grid item xs={2}><Box sx={{minHeight:'18vh'}}><Word word={String(props.question)}/></Box></Grid><Grid item xs={6} ><Box sx={{minHeight:'18vh'}} /></Grid></> : <WordList words={chooseWords(props)} />}            
             
-            <Grid item xs={6} >
-                <Box
-                    sx={{
-                        minHeight:'18vh'
-                    }}>
-                    <Button
-                        variant="outlined"
-                        onClick={buttonClick}
+
+            {
+                show &&
+                <>
+                    <Grid item xs={1} >
+                        <Box sx={{ minHeight:'18vh' }} />
+                    </Grid>
+                    <Grid item xs={2} >
+                        <Box
+                            sx={{
+                                minHeight:'18vh'
+                            }}>
+                            <Button
+                                variant="outlined"
+                                onClick={bad}
+                                sx={{
+                                    minHeight:'10vh',
+                                    width: '90%'
+                                }}>
+                                    Źle
+                            </Button>
+                        </Box>
+                    </Grid>
+                    <Grid item xs={2} >
+                        <Box
+                            sx={{
+                                minHeight:'18vh'
+                            }}>
+                            <Button
+                                variant="outlined"
+                                onClick={good}
+                                sx={{
+                                    minHeight:'10vh',
+                                    width: '90%'
+                                }}>
+                                    Dobrze
+                            </Button>
+                        </Box>
+                    </Grid>
+                    <Grid item xs={1} >
+                        <Box sx={{ minHeight:'18vh' }} />
+                    </Grid>
+                </>
+            }
+            {
+                !show &&
+                <Grid item xs={6} >
+                    <Box
                         sx={{
-                            minHeight:'10vh',
-                            width: '50%'
+                            minHeight:'18vh'
                         }}>
-                            { show ? "Następna tura!" : "Pokaż hasło!" }
-                    </Button>
-                </Box>
-            </Grid>
+                        <Button
+                            variant="outlined"
+                            onClick={() => setShow(true)}
+                            sx={{
+                                minHeight:'10vh',
+                                width: '50%'
+                            }}>
+                                Pokaż hasło!
+                        </Button>
+                    </Box>
+                </Grid>
+            }
     </Grid>
   );
 }

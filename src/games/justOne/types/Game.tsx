@@ -1,8 +1,9 @@
-import { Player } from "./Player";
+import { Team } from "./Team";
+import { TeamGame } from "./TeamGame";
 
 export interface Game {
-  players: Player[],
-  activePlayer: string | undefined,
+  teams: Team[],
+  activeTeam: number,
   playing: boolean,
-  question: string | undefined
+  teamGames: TeamGame[]
   }

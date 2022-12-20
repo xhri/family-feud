@@ -7,127 +7,55 @@ import { GameContext } from '../../contexts/GameContext';
 import FamilyFeud from '../../../games/familyFeud/components/familyFeud/FamilyFeud';
 import FamilyFeudButton from '../../../games/familyFeud/components/familyFeudButton/FamilyFeudButton';
 import LoginScreen from '../loginScreen/LoginScreen';
-import { GameType } from '../../types/GameType';
+import { GameType } from './GameType';
 import HomeIcon from '@mui/icons-material/Home';
 import CodenamesAdmin from '../../../games/codenames/components/codenamesAdmin/CodenamesAdmin';
 import { Config } from '../../../config';
 import JustOneMain from '../../../games/justOne/components/justOneMain/JustOneMain';
 import JustOnePhone from '../../../games/justOne/components/justOnePhone/JustOnePhone';
 import Spectrum from '../../../games/spectrum/Spectrum';
+import { GuessThePriceMain } from '../../../games/guessThePrice/components/guessThePriceMain/GuessThePriceMain';
+import { GuessThePricePhone } from '../../../games/guessThePrice/components/guessThePricePhone/GuessThePricePhone';
+import { HomeButton } from './homeButton/HomeButton';
+import { GameChooserProps } from './GameChooserProps';
+import { GameChooserListElement } from './gameChooserListElement/GameChooserListElement';
+import { GameChooserElement } from './gameChooserElement/GameChooserElement';
 
 function GameChooser() {
     const [game, setGame] = useState<GameType>(GameType.None);
 
+    let types: GameChooserProps[] = [
+        {label:"Just One", currentType:game, type:GameType.JustOnePhone, children:<JustOnePhone />, onClick:() => setGame(GameType.JustOnePhone)},
+        {label:"Guess the price", currentType:game, type:GameType.GuessThePricePhone, children:<GuessThePricePhone />, onClick:() => setGame(GameType.GuessThePricePhone)},
+        {label:"Family Feud", currentType:game, type:GameType.FamilyFeud, children:<FamilyFeud />, onClick:() => setGame(GameType.FamilyFeud)},
+        {label:"Codenames", currentType:game, type:GameType.CodenamesMain, children:<Codenames />, onClick:() => setGame(GameType.CodenamesMain)},
+        {label:"Family Feud Button", currentType:game, type:GameType.FamilyFeudButton, children:<FamilyFeudButton />, onClick:() => setGame(GameType.FamilyFeudButton)},
+        {label:"Codenames Captain", currentType:game, type:GameType.CodenamesCaptain, children:<LoginScreen getPassword={SettingsService.GetPassword}><CodenamesCaptain /></LoginScreen>, onClick:() => setGame(GameType.CodenamesCaptain)},
+        {label:"Just One TV", currentType:game, type:GameType.JustOneMain, children:<JustOneMain />, onClick:() => setGame(GameType.JustOneMain)},
+        {label:"Guess the price TV", currentType:game, type:GameType.GuessThePriceMain, children:<GuessThePriceMain />, onClick:() => setGame(GameType.GuessThePriceMain)},
+        {label:"Codenames Admin", currentType:game, type:GameType.CodenamesAdmin, children:<LoginScreen getPassword={() => new Promise(r => r(Config.Password))}><CodenamesAdmin /></LoginScreen>, onClick:() => setGame(GameType.CodenamesAdmin)}
+    ];
+
   return (
     <GameContext.Provider value={{game, setGame}}>
-    <Box
-        sx={{
-            position: 'absolute',
-            top: '0.5%',
-            left: '0.5%',
-            zIndex: 5,
-        }}>
-            {
-                game != GameType.None &&
-                <HomeIcon onClick={()=>setGame(GameType.None)} />
-            }      
-    </Box>
-
-    {
-        game == GameType.None &&
-        <Box 
-            display="flex"
-            justifyContent="center"
-            alignItems="center"
-            marginTop="25px"
-            marginBottom="25px">
-                <Box  sx={{ width: '100%', maxWidth: 600, bgcolor: 'background.paper', fontSize: '10em' }} >
-                    <List>
-                        <ListItem disablePadding>
-                            <ListItemButton onClick={()=>setGame(GameType.JustOnePhone)}>
-                                <ListItemText primaryTypographyProps={{fontSize: '50px'}} primary="Just One" />
-                            </ListItemButton>
-                        </ListItem>
-                        <ListItem disablePadding>
-                            <ListItemButton onClick={()=>setGame(GameType.FamilyFeud)}>
-                                <ListItemText primaryTypographyProps={{fontSize: '50px'}} primary="Family Feud" />
-                            </ListItemButton>
-                        </ListItem>
-                        <ListItem disablePadding>
-                            <ListItemButton onClick={()=>setGame(GameType.CodenamesMain)}>
-                                <ListItemText primaryTypographyProps={{fontSize: '50px'}} primary="Codenames" />
-                            </ListItemButton>
-                        </ListItem>
-                        <ListItem disablePadding>
-                            <ListItemButton>
-                                <ListItemText primaryTypographyProps={{fontSize: '50px'}} primary="Family Feud Finale" />
-                            </ListItemButton>
-                        </ListItem>
-                        <ListItem disablePadding>
-                            <ListItemButton onClick={()=>setGame(GameType.FamilyFeudButton)}>
-                                <ListItemText primaryTypographyProps={{fontSize: '50px'}} primary="Family Feud Button" />
-                            </ListItemButton>
-                        </ListItem>
-                        <ListItem disablePadding>
-                            <ListItemButton onClick={()=>setGame(GameType.CodenamesCaptain)}>
-                                <ListItemText primaryTypographyProps={{fontSize: '50px'}} primary="Codenames Captain" />
-                            </ListItemButton>
-                        </ListItem>
-                        <ListItem disablePadding>
-                            <ListItemButton onClick={()=>setGame(GameType.CodenamesAdmin)}>
-                                <ListItemText primaryTypographyProps={{fontSize: '50px'}} primary="Codenames Admin" />
-                            </ListItemButton>
-                        </ListItem>
-                        <ListItem disablePadding>
-                            <ListItemButton onClick={()=>setGame(GameType.JustOneMain)}>
-                                <ListItemText primaryTypographyProps={{fontSize: '50px'}} primary="Just One Main" />
-                            </ListItemButton>
-                        </ListItem>
-                        <ListItem disablePadding>
-                            <ListItemButton onClick={()=>setGame(GameType.Spectrum)}>
-                                <ListItemText primaryTypographyProps={{fontSize: '50px'}} primary="Spectrum" />
-                            </ListItemButton>
-                        </ListItem>
-                    </List>
-                </Box>
-        </Box> 
-    }
-    {
-        game == GameType.FamilyFeud &&
-        <FamilyFeud />
-    }
-    {
-        game == GameType.CodenamesMain &&
-        <Codenames />
-    }
-    {
-        game == GameType.JustOneMain &&
-        <JustOneMain />
-    }
-    {
-        game == GameType.JustOnePhone &&
-        <JustOnePhone />
-    }
-    {
-        game == GameType.Spectrum &&
-        <Spectrum />
-    }
-    {
-        game == GameType.CodenamesCaptain &&
-        <LoginScreen getPassword={SettingsService.GetPassword}>
-            <CodenamesCaptain />
-        </LoginScreen>
-    }
-    {
-        game == GameType.CodenamesAdmin &&
-        <LoginScreen getPassword={() => new Promise(r => r(Config.Password))}>
-            <CodenamesAdmin />
-        </LoginScreen>
-    }
-    {
-        game == GameType.FamilyFeudButton &&
-        <FamilyFeudButton />
-    }
+        <HomeButton label={''} type={GameType.None} currentType={game} onClick={() => setGame(GameType.None)} children={<></>} />
+        
+        {
+            game == GameType.None &&
+            <Box 
+                display="flex"
+                justifyContent="center"
+                alignItems="center"
+                marginTop="25px"
+                marginBottom="25px">
+                    <Box  sx={{ width: '100%', maxWidth: 600, bgcolor: 'background.paper', fontSize: '10em' }} >
+                        <List>
+                            {types.map(t => <GameChooserListElement label={t.label} type={t.type} currentType={t.currentType} onClick={t.onClick} children={t.children} />)}
+                        </List>
+                    </Box>
+            </Box> 
+        }
+        {types.map(t => <GameChooserElement label={t.label} type={t.type} currentType={t.currentType} onClick={t.onClick} children={t.children} />)}
     </GameContext.Provider >
   );
 }
